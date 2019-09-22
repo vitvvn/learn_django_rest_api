@@ -1,19 +1,25 @@
 import json
 from django.test import TransactionTestCase
 from django.contrib.auth import get_user_model
+from django.urls import reverse
 
 from updates import models
 
-JSON_URL = '/updates/json/'
-DETAIL_URL = '/updates/serialized_detail/3/'
-LIST_URL = '/updates/serialized_list/'
+JSON_URL = reverse('updates:json')
+# DETAIL_URL = reverse('updates:serialized_detail')
+LIST_URL = reverse('updates:serialized_list')
+
+
+def detail_url(_id):
+    """Return URL for detail update"""
+    return reverse('updates:serialized_detail', args=[_id])
 
 
 def sample_item(user, content='New content'):
     return models.Update.objects.create(user=user, content=content)
 
 
-class ResponseTest(TransactionTestCase):
+class ResponseTests(TransactionTestCase):
 
     def setUp(self) -> None:
         payload = {
@@ -36,7 +42,7 @@ class ResponseTest(TransactionTestCase):
         self.assertContains(res, json.dumps(payload), status_code=200)
 
     def test_serialized_detail(self):
-        res = self.client.get(DETAIL_URL)
+        res = self.client.get(detail_url(self.item.id))
 
         self.assertContains(res, json.dumps({'user': self.item.user.id, 'content': self.item.content,
                                              'image': ''}))

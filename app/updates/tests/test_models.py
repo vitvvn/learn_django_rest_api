@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from updates import models
 
 
-class ModelTest(TransactionTestCase):
+class ModelTests(TransactionTestCase):
 
     def setUp(self) -> None:
         self.user = get_user_model().objects.create_user(

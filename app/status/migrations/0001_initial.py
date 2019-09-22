@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
-import updates.models
+import status.models
 
 
 class Migration(migrations.Migration):
@@ -18,14 +18,18 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Update',
+            name='Status',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('content', models.TextField(blank=True, null=True)),
-                ('image', models.ImageField(blank=True, null=True, upload_to=updates.models.upload_update_image)),
+                ('image', models.ImageField(blank=True, null=True, upload_to=status.models.upload_status_image)),
                 ('updated', models.DateTimeField(auto_now=True)),
                 ('timestamp', models.DateTimeField(auto_now_add=True)),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
+            options={
+                'verbose_name': 'Status post',
+                'verbose_name_plural': 'Status posts',
+            },
         ),
     ]
