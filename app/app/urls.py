@@ -20,4 +20,5 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^updates/', include('updates.urls'), name='updates'),
+    url(r'api/status/', include('status.api.urls'), name='status'),
 ]

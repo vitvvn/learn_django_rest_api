@@ -54,7 +54,7 @@ print(data)
 # serializer.is_valid()
 # serializer.save()
 #
-obj = Status.objects.get(id=2)
+obj = Status.objects.get(id=3)
 print(obj)
 data = {'content': 'New', 'user': 1}
 serializer = StatusSerializer(instance=obj, data=data)
